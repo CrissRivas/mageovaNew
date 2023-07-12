@@ -1,19 +1,39 @@
 <template>
   <div>
-    <h1>{{ count }}</h1>
+    <v-card justify="center" align="center">
+      <h3>No cierres esta ventana</h3>
+      <p>{{ counter }} segundos restantes</p>
+    </v-card>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    waitingTime: {
+      type: Number,
+      required: true
+    }
+  },
   data() {
     return {
-      count: 10,
+      counter: 10
     };
   },
   mounted() {
-    
+    this.counter = this.waitingTime;
+    this.startCountdown();
+  },
+  methods: {
+    startCountdown() {
+      let interval = setInterval(() => {
+        if (this.counter > 0) {
+          this.counter--;
+        } else {
+          clearInterval(interval);
+        }
+      }, 1000);
+    }
   }
 };
 </script>
-

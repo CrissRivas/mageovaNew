@@ -1,36 +1,55 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class=" py-4 d-flex justify-center">
-        <Clock />
-        <p>{{$route.params}}</p>
-      </v-card>
+  <v-row justify="center">
+    <v-col :md="8"  :xs="12">
+        <Clock :waitingTime="10" />
+        <Banner />
+        <Btns :buttons="buttons" @emitBtnId="selectedBtn"/>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import Clock from '~/components/composed/clock.vue';
-import connection from '~/plugins/db';
+import  Clock   from   '~/components/composed/clock.vue';
+import  Banner  from   '~/components/composed/banner.vue';
+import  Btns    from   '~/components/composed/btns';
+import {connectToDatabase,closeDatabaseConnection} from '~/plugins/db';
 export default {
   name: 'IndexPage',
     components: {
-    Clock
+    Clock,
+    Banner,
+    Btns
   },
   data() {
     return {
-      params: ''
+      params: '',
+      buttonSelected: 0,
+      buttons: [
+        '1.png',
+        '2.png',
+        '3.png',
+        ]
+    }
+  },
+
+  methods:{
+    selectedBtn(value){
+      console.log(value);
+      this.buttonSelected = value;
     }
   },
   async created() {
-    // Aquí puedes realizar consultas a la base de datos utilizando la conexión
-    // Ejemplo:
-
     try {
-      let datazos = await connection.execute('SELECT id FROM mageova_portales.Impactos WHERE dispositivo_rt = ? LIMIT 10', ['X4-0219']);
-      console.log(  datazos[0]  );
+      const connection = await connectToDatabase();
+
+      // Realiza las operaciones necesarias con la base de datos aquí
+      
+
+      closeDatabaseConnection(); // Cierra la conexión después de usarla
+
+      console.log('cool!');
     } catch (error) {
-      console.error('Error al ejecutar la consulta:', error);
+      console.error('Error al conectarse a la base de datos:', error);
     }
   }
 }
