@@ -30,6 +30,7 @@ export default {
         if (this.counter > 0) {
           this.counter--;
         } else {
+          this.$emit('emitTime', true);
           clearInterval(interval);
         }
       }, 1000);
