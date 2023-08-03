@@ -1,22 +1,28 @@
 <template>
-<v-row justify="center">
-    <v-col align="center">
-        <img src="@/assets/jpg/banner.jpg" aspect-radio/>
-    </v-col>
-</v-row>
-        
+    <v-row justify="center">
+        <v-col align="center">
+            <img 
+            :src="require(`@/assets/jpg/${src}`)" />
+        </v-col>
+    </v-row>
 </template>
 
 <script>
-    export default {
+export default {
+    props: {
+        src: {
+            type: String,
+            required: true
+        }
     }
+}
 </script>
 
 <style lang="scss" scoped>
-img{
+img {
     max-width: 100%;
     max-height: 80vh;
-    aspect-radio: 2/3;
+    aspect-ratio: 2/3;
     border-radius: 5px;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="space-around" align="center">
+    <v-row justify="space-around" dense>
     <!-- Un Btn por cada objeto en el array buttons -->
         <Btn v-for="(button,i) in buttons" :key="i" :imgBtn="button" :id="i" @btnId="emitBtnId"/> 
     </v-row>

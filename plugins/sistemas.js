@@ -1,35 +1,31 @@
 export function getInsertData() {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
+  const queryString = new URLSearchParams(window.location.search);
+  const host_campana = window.location.host;
+  const path = '';
+  const direccion_ip = '';
+  const identificador = window.navigator.userAgent;
+  const sistema = getOS(identificador);
+  const navegador = getBrowser(identificador);
+  const dispositivo_rt = queryString.get("model") || 'no disponible';
+  const folio = generateUniqueId();
+  
+  const insertData = {
+    host_campana,
+    path,
+    identificador,
+    folio,
+    dispositivo_rt,
+    direccion_ip,
+    navegador,
+    sistema,
+  };
 
-  var host_campana = window.location.host;
-  var identificador = window.navigator.userAgent;
-  var sistema = getOS(identificador);
-  var navegador = getBrowser(identificador);
-  var id = generateUniqueId();
-  var dispositivo = urlParams.get('model');
-
-  var insertData = {
-    'hostCampana': host_campana,
-    'path':'',
-    'date': '',
-    'identificador': identificador,
-    'folio': id,
-    'dispositivoRt':dispositivo,
-    'direccionIp': '',
-    'navegador': navegador,
-    'sistema': sistema
-  }
-
-return insertData;
+  return insertData;
 }
 
-
 function getOS(userAgent) {
-    var os_platform = 'Unknown OS Platform';
-  
-    var os_array = {
-      'Windows 10': /(windows nt 10)/i,
+  const os_array = {
+    'Windows 10': /(windows nt 10)/i,
       'Windows 8.1': /(windows nt 6.3)/i,
       'Windows 8': /(windows nt 6.2)/i,
       'Windows 7': /(windows nt 6.1)/i,
@@ -51,43 +47,41 @@ function getOS(userAgent) {
       'Android': /(android)/i,
       'BlackBerry': /(blackberry)/i,
       'Mobile': /(webos|mobile)/i
-    };
-  
-    Object.entries(os_array).forEach(([value, regex]) => {
-      if (regex.test(userAgent)) {
-        os_platform = value;
-      }
-    });
-  
-    return os_platform;
-  }
-  
-function getBrowser(userAgent) {
-    var browser = 'Unknown Browser';
-  
-    var browser_array = {
-      'Internet Explorer': /(msie|trident)/i,
-      'Firefox': /(firefox)/i,
-      'Safari': /(safari)/i,
-      'Chrome': /(chrome)/i,
-      'Edge': /(edge|edg)/i,
-      'Opera': /(opera|opr)/i,
-      'Netscape': /(netscape)/i,
-      'Maxthon': /(maxthon)/i,
-      'Konqueror': /(konqueror)/i,
-      'Handheld Browser': /(mobile)/i
-    };
-  
-    Object.entries(browser_array).forEach(([value, regex]) => {
-      if (regex.test(userAgent)) {
-        browser = value;
-      }
-    });
-  
-    return browser;
+  };
+
+  for (const [value, regex] of Object.entries(os_array)) {
+    if (regex.test(userAgent)) {
+      return value;
+    }
   }
 
-  function generateUniqueId() {
+  return "Unknown OS Platform";
+}
+
+function getBrowser(userAgent) {
+  const browser_array = {
+    'Internet Explorer': /(msie|trident)/i,
+    'Firefox': /(firefox)/i,
+    'Safari': /(safari)/i,
+    'Chrome': /(chrome)/i,
+    'Edge': /(edge|edg)/i,
+    'Opera': /(opera|opr)/i,
+    'Netscape': /(netscape)/i,
+    'Maxthon': /(maxthon)/i,
+    'Konqueror': /(konqueror)/i,
+    'Handheld Browser': /(mobile)/i
+  };
+
+  for (const [value, regex] of Object.entries(browser_array)) {
+    if (regex.test(userAgent)) {
+      return value;
+    }
+  }
+
+  return "Unknown Browser";
+}
+
+ function generateUniqueId() {
     // Genera un número aleatorio de 4 dígitos y lo combina con la marca de tiempo actual
     const randomNum = Math.floor(Math.random() * 10000);
     const timestamp = new Date().getTime();
