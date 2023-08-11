@@ -6,7 +6,7 @@
           <v-card
             :color="color"
             width="350"
-            class="pa-2 px-4"
+            class="px-4"
             elevation="12"
             outlined
             shaped
@@ -22,13 +22,13 @@
           </v-card>
         </v-row>
         <v-row justify="space-around" class="py-2">
-          <v-btn color="pink" rounded :disabled="!isEmailValid" @click="wifi()">
-            <v-icon> mdi-wifi</v-icon>
+          <v-btn color="pink" rounded :disabled="!isEmailValid" @click="sendEmail()">
+            <!-- <v-icon> mdi-wifi</v-icon> -->
             Liberar WiFi
           </v-btn>
           <v-btn color="purple" rounded>
             Visitar sitio
-            <v-icon> mdi-arrow-right</v-icon>
+            <!-- <v-icon> mdi-arrow-right</v-icon> -->
           </v-btn>
         </v-row>
       </v-col>
@@ -75,26 +75,15 @@ export default {
       );
     },
   },
-  methods: {
-    wifi() {
-      const folio = this.send.folio;
-      
-      this.send.mail = this.email;
-      makeResponse(this.send);
-      this.$router.push({
-        path: "/saba/email/wifi",
-        query: {
-          folio,
-          model: this.model,
-        },
-      });
-    },
+  watch:{
+    email(){
+      this.$emit('NewEmail',this.email)
+    }
   },
-  mounted() {
-    this.send.option = this.$route.query.value;
-    this.send.folio = this.$route.query.folio;
-    this.model = this.$route.query.model;
-    console.log(this.model);
+  methods: {
+    sendEmail(){
+      this.$emit('sendEmail',true);
+    }
   },
 };
 </script>
