@@ -15,7 +15,7 @@
 <script>
 import Banner from "~/components/composed/banner.vue";
 import EmailForm from "~/components/composed/emailForm.vue";
-import { makeResponse } from "~/plugins/db.js";
+import { makeImpactoMongo } from "~/plugins/db.js";
 import { getInsertData } from "~/plugins/sistemas.js";
 
 export default {
@@ -28,11 +28,9 @@ export default {
       src: require("@/assets/jpg/banner.jpg"),
       color: "pink lighten-3",
       txt: "¿Te gustaria recibir promociones?",
-      send: {
-        folio: "@",
+      response: {
         mail: "@",
-        age: "@",
-        option: 0,
+        option: "@",
       },
       button: "",
       model: "",
@@ -42,11 +40,13 @@ export default {
   },
   methods: {
     wifi() {
-      makeResponse(this.send);
-      this.toWifi(this.send.folio, this.model);
+      this.insertData.status = "Impacto"
+      this.insertData.response = this.response;
+      makeImpactoMongo(this.insertData);
+      this.toWifi(this.insertData.folio, this.model);
     },
     NewEmail(datos) {
-      this.send.mail = datos;
+      this.response.mail = datos;
     },
     toWifi(folio, model) {
       this.$router.push({
@@ -69,10 +69,11 @@ export default {
     },
   },
   mounted() {
-    this.send.option = this.$route.query.value;
-    this.send.folio = this.$route.query.folio;
-    this.model = this.$route.query.model;
     this.insertData = getInsertData();
+    this.response.option = this.$route.query.value;
+    this.insertData.folio = this.$route.query.folio;
+    this.model = this.$route.query.id;
+    
   },
 };
 </script>

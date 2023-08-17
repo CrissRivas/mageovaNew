@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { makeImpactoMongo, makeImpacto } from "~/plugins/db.js";
+import {  makeImpacto } from "~/plugins/db.js";
 import { getInsertData } from "~/plugins/sistemas.js";
 
 export default {
@@ -13,17 +13,18 @@ export default {
     return {
       wifi: require("@/assets/jpg/wifi.jpg"),
       send: {},
+      idModel:"no id",
     };
   },
-  beforeMount() {
+  mounted() {
     this.send = getInsertData();
-    this.send.model = this.$route.query.model;
+    this.idModel = this.$route.query.model;
     this.send.folio = this.$route.query.folio;
     makeImpacto(this.send);
-    makeImpactoMongo(this.send);
+    console.log(this.idModel);
 
-    if (this.send.model !== undefined) {
-      const model = this.send.model;
+    if (this.send.id !== "no id") {
+      const model = this.idModel;
       let redirectUrl;
 
       if (model === "RUT240") {

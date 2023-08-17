@@ -6,7 +6,8 @@ export function getInsertData() {
   const sistema = getOS(identificador);
   const navegador = getBrowser(identificador);
   const folio = generateUniqueId();
-
+  const response = {};
+  const status = "Intento";
   const uamip = queryString.get("uamip") || "no uamip";
   const uamport = queryString.get("uamport") || "no uamport ";
   const called = queryString.get("called") || "no called";
@@ -15,9 +16,9 @@ export function getInsertData() {
   const sessionid = queryString.get("sessionid") || "no sessionid ";
   const userurl = queryString.get("userurl") || "no userurl ";
   const challenge = queryString.get("challenge") || "no challenge";
-  const id = queryString.get("id") || "no id";
+  const id = queryString.get("model") || "no id";
   const direccion_ip = queryString.get("ip") || "no ip";
-  const dispositivo_rt = queryString.get("model") || "no disp";
+  const dispositivo_rt = queryString.get("id") || "no disp";
   
 
   const insertData = {
@@ -38,6 +39,8 @@ export function getInsertData() {
     sessionid,
     userurl,
     challenge,
+    response,
+    status,
   };
 
   return insertData;

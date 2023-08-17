@@ -20,7 +20,7 @@ import Clock from "~/components/composed/clock.vue";
 import Banner from "~/components/composed/banner.vue";
 import Btns from "~/components/composed/btns";
 import { getInsertData } from "~/plugins/sistemas.js";
-import { makeIntento, makeIntentoMongo } from "~/plugins/db.js";
+import { makeIntento, makeImpactoMongo } from "~/plugins/db.js";
 
 export default {
   name: "IndexPage",
@@ -72,7 +72,7 @@ export default {
     this.insertData = getInsertData();
     // console.log(this.insertData.folio);
     makeIntento(this.insertData);
-    makeIntentoMongo(this.insertData);
+    makeImpactoMongo(this.insertData);
   },
 };
 </script>

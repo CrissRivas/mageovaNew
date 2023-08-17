@@ -38,3 +38,13 @@ export default {
   }
 };
 </script>
+
+
+<style lang="css" scoped>
+h3{
+  font-size: 25px !important;
+}
+p{
+  font-size: 20px !important;
+}
+</style>

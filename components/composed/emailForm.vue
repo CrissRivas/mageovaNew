@@ -26,7 +26,7 @@
             <!-- <v-icon> mdi-wifi</v-icon> -->
             Liberar WiFi
           </v-btn>
-          <v-btn color="purple" rounded>
+          <v-btn color="purple" rounded @click="siteRedirect()">
             Visitar sitio
             <!-- <v-icon> mdi-arrow-right</v-icon> -->
           </v-btn>
@@ -83,7 +83,18 @@ export default {
   methods: {
     sendEmail(){
       this.$emit('sendEmail',true);
+    },
+    siteRedirect(){
+      window.location.href = "https://www.saba.com.mx/comprar-productos/kits-saba/kits-diana-lista/";
     }
   },
 };
 </script>
+<style lang="css" scoped>
+h3{
+  font-size: 25px !important;
+}
+p{
+  font-size: 20px !important;
+}
+</style>
