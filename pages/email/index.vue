@@ -1,7 +1,7 @@
 <template>
   <v-row justify="center">
     <v-col :md="8" :xs="12" dense>
-      <v-img :src="src" height="70vh" contain class="mb-4" />
+      <v-img :src="src" height="60vh" contain class="mb-4" />
       <EmailForm
         :color="color"
         :txt="txt"

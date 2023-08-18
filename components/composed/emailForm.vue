@@ -92,9 +92,19 @@ export default {
 </script>
 <style lang="css" scoped>
 h3{
-  font-size: 25px !important;
+  font-size: 20px !important;
 }
 p{
-  font-size: 20px !important;
+  font-size: 16px !important;
+}
+
+@media screen and (min-font-size: 16px) {
+  /* Aplicar estilos para dispositivos con tamaño de fuente mayor o igual a 16px */
+  h3{
+    font-size: 10px !important;
+  }
+  p{
+    font-size: 6px !important;
+  }
 }
 </style>
