@@ -10,6 +10,7 @@
             elevation="12"
             outlined
             shaped
+            dense
           >
             <p class="text-center title">{{ txt }}</p>
             <v-text-field
@@ -17,6 +18,7 @@
               :rules="emailRules"
               label="E-mail"
               outlined
+              dense
               color="black"
             />
           </v-card>
@@ -92,7 +94,7 @@ export default {
 </script>
 <style lang="css" scoped>
 h3{
-  font-size: 20px !important;
+  font-size: 16px !important;
 }
 p{
   font-size: 16px !important;

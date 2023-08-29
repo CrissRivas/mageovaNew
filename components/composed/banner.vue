@@ -21,7 +21,7 @@ export default {
 <style lang="scss" scoped>
 img {
     max-width: 100%;
-    max-height: 75vh;
+    max-height: 65vh;
     aspect-ratio: 2/3;
     border-radius: 5px;
 }

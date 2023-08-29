@@ -7,7 +7,6 @@ export function getInsertData() {
   const navegador = getBrowser(identificador);
   const folio = generateUniqueId();
   const response = {};
-  const status = "Intento";
   const uamip = queryString.get("uamip") || "no uamip";
   const uamport = queryString.get("uamport") || "no uamport ";
   const called = queryString.get("called") || "no called";
@@ -40,7 +39,6 @@ export function getInsertData() {
     userurl,
     challenge,
     response,
-    status,
   };
 
   return insertData;

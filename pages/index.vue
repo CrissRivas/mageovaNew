@@ -20,7 +20,7 @@ import Clock from "~/components/composed/clock.vue";
 import Banner from "~/components/composed/banner.vue";
 import Btns from "~/components/composed/btns";
 import { getInsertData } from "~/plugins/sistemas.js";
-import { makeIntento, makeImpactoMongo } from "~/plugins/db.js";
+import { makeIntento, makeIntentoMongo } from "~/plugins/db.js";
 
 export default {
   name: "IndexPage",
@@ -36,15 +36,32 @@ export default {
       buttons: ["1.png", "2.png", "3.png"],
       insertData: {},
       src: "banner.jpg",
+      makeOption: "",
     };
   },
 
   methods: {
     selectedBtn(value) {
+      switch (value) {
+        case 1:
+          this.makeOption = "Ginecológicamente";
+          break;
+        case 2:
+          this.makeOption = "Balance Ph";
+          break;
+        case 3:
+          this.makeOption = "Ingredientes naturales";
+          break;
+        default:
+          this.makeOption = "No aplica";
+          break;
+      }
+
+      console.log(value, this.makeOption);
       this.$router.push({
         path: "/email",
         query: {
-          value,
+          value: this.makeOption,
           uamip: this.insertData.uamip,
           uamport: this.insertData.uamport,
           called: this.insertData.called,
@@ -60,7 +77,6 @@ export default {
         },
       });
     },
-    // Resto del código...
 
     timeOver() {
       console.log("time over!");
@@ -72,7 +88,7 @@ export default {
     this.insertData = getInsertData();
     // console.log(this.insertData.folio);
     makeIntento(this.insertData);
-    makeImpactoMongo(this.insertData);
+    makeIntentoMongo(this.insertData);
   },
 };
 </script>

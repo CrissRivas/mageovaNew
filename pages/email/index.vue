@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     wifi() {
-      this.insertData.status = "Impacto"
       this.insertData.response = this.response;
       makeImpactoMongo(this.insertData);
       this.toWifi(this.insertData.folio, this.model);
@@ -71,6 +70,7 @@ export default {
   mounted() {
     this.insertData = getInsertData();
     this.response.option = this.$route.query.value;
+    console.log(this.response.option);
     this.insertData.folio = this.$route.query.folio;
     this.model = this.$route.query.id;
     

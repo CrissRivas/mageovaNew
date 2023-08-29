@@ -1,7 +1,7 @@
 <template>
     <v-row justify="space-around" dense>
     <!-- Un Btn por cada objeto en el array buttons -->
-        <Btn v-for="(button,i) in buttons" :key="i" :imgBtn="button" :id="i" @btnId="emitBtnId"/> 
+        <Btn v-for="(button,i) in buttons" :key="i" :imgBtn="button" :id="i" @btnId="emitBtnId(i)"/> 
     </v-row>
 </template>
 
@@ -19,7 +19,7 @@ import Btn from "../atomic/btn";
         },
         methods: {
             emitBtnId(value) {
-            this.$emit('emitBtnId', value);
+            this.$emit('emitBtnId', value + 1);
             }
         }
         
