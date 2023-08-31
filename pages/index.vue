@@ -3,14 +3,14 @@
     <v-col :md="8" :xs="12">
       <Clock :waitingTime="10" @emitTime="timeOver" />
       <Banner :src="src" />
-      <v-row>
+      <!-- <v-row>
         <v-col no-gutters align-content="center" justify="center">
           <Btns :buttons="buttons" @emitBtnId="selectedBtn" />
         </v-col>
         <v-col align="center" justify="start" no-gutters cols="5">
           <v-btn @click="selectedBtn(4)" color="pink"> No aplica </v-btn>
         </v-col>
-      </v-row>
+      </v-row> -->
     </v-col>
   </v-row>
 </template>
@@ -42,24 +42,24 @@ export default {
 
   methods: {
     selectedBtn(value) {
-      switch (value) {
-        case 1:
-          this.makeOption = "Ginecológicamente";
-          break;
-        case 2:
-          this.makeOption = "Balance Ph";
-          break;
-        case 3:
-          this.makeOption = "Ingredientes naturales";
-          break;
-        default:
-          this.makeOption = "No aplica";
-          break;
-      }
+      // switch (value) {
+      //   case 1:
+      //     this.makeOption = "Ginecológicamente";
+      //     break;
+      //   case 2:
+      //     this.makeOption = "Balance Ph";
+      //     break;
+      //   case 3:
+      //     this.makeOption = "Ingredientes naturales";
+      //     break;
+      //   default:
+      //     this.makeOption = "No aplica";
+      //     break;
+      // }
 
       console.log(value, this.makeOption);
       this.$router.push({
-        path: "/email",
+        path: "/wifi",
         query: {
           value: this.makeOption,
           uamip: this.insertData.uamip,
@@ -70,16 +70,17 @@ export default {
           sessionid: this.insertData.sessionid,
           userurl: this.insertData.userurl,
           challenge: this.insertData.challenge,
-          id: this.insertData.id,
+          id: this.insertData.dispositivo_rt,
           ip: this.insertData.direccion_ip,
           folio: this.insertData.folio,
-          model: this.insertData.dispositivo_rt,
+          model: this.insertData.id,
         },
       });
     },
 
     timeOver() {
       console.log("time over!");
+      this.selectedBtn('@');
     },
   },
 

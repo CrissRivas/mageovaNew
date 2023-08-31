@@ -18,13 +18,13 @@ export default {
   },
   mounted() {
     this.send = getInsertData();
-    this.idModel = this.$route.query.model;
+    this.idModel = this.$route.query.id;
     this.send.folio = this.$route.query.folio;
     makeImpacto(this.send);
-    console.log(this.idModel);
+    console.log(this.send.id);
 
     if (this.send.id !== "no id") {
-      const model = this.idModel;
+      const model = this.send.id;
       let redirectUrl;
 
       if (model === "RUT240") {
