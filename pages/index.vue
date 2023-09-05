@@ -1,67 +1,52 @@
 <template>
   <v-row justify="center">
     <v-col :md="8" :xs="12">
-      <Clock :waitingTime="10" @emitTime="timeOver" />
       <Banner :src="src" />
-      <!-- <v-row>
-        <v-col no-gutters align-content="center" justify="center">
-          <Btns :buttons="buttons" @emitBtnId="selectedBtn" />
-        </v-col>
-        <v-col align="center" justify="start" no-gutters cols="5">
-          <v-btn @click="selectedBtn(4)" color="pink"> No aplica </v-btn>
-        </v-col>
-      </v-row> -->
+      <v-card class="px-2">
+        <v-row class="px-4">
+          <span>{{ advice }}</span>
+        </v-row>
+        <Select @sendResponse="makeRes" @edad="insertAge" @genero="insertGen" />
+      </v-card>
     </v-col>
   </v-row>
 </template>
 
 <script>
-import Clock from "~/components/composed/clock.vue";
 import Banner from "~/components/composed/banner.vue";
-import Btns from "~/components/composed/btns";
+import Select from "~/components/composed/select.vue";
 import { getInsertData } from "~/plugins/sistemas.js";
-import { makeIntento, makeIntentoMongo } from "~/plugins/db.js";
+import { makeIntento, makeIntentoMongo, makeResponse } from "~/plugins/db.js";
 
 export default {
   name: "IndexPage",
   components: {
-    Clock,
     Banner,
-    Btns,
+    Select,
   },
   data() {
     return {
-      params: "",
-      buttonSelected: 0,
-      buttons: ["1.png", "2.png", "3.png"],
+      advice: "Apóyanos con la siguiente información para liberar internet",
       insertData: {},
       src: "banner.jpg",
-      makeOption: "",
     };
   },
 
   methods: {
-    selectedBtn(value) {
-      // switch (value) {
-      //   case 1:
-      //     this.makeOption = "Ginecológicamente";
-      //     break;
-      //   case 2:
-      //     this.makeOption = "Balance Ph";
-      //     break;
-      //   case 3:
-      //     this.makeOption = "Ingredientes naturales";
-      //     break;
-      //   default:
-      //     this.makeOption = "No aplica";
-      //     break;
-      // }
-
-      console.log(value, this.makeOption);
+    insertAge(age) {
+      this.insertData.response.edad = age;
+    },
+    insertGen(gen) {
+      this.insertData.response.gen = gen;
+    },
+    makeRes() {
+      makeResponse(this.insertData);
+      this.toWifi();
+    },
+    toWifi() {
       this.$router.push({
         path: "/wifi",
         query: {
-          value: this.makeOption,
           uamip: this.insertData.uamip,
           uamport: this.insertData.uamport,
           called: this.insertData.called,
@@ -77,17 +62,10 @@ export default {
         },
       });
     },
-
-    timeOver() {
-      console.log("time over!");
-      this.selectedBtn('@');
-    },
   },
 
   beforeMount() {
-    // Llamar a la función getInsertData y asignar el resultado a insertData
     this.insertData = getInsertData();
-    // console.log(this.insertData.folio);
     makeIntento(this.insertData);
     makeIntentoMongo(this.insertData);
   },
